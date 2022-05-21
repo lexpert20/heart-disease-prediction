@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <title>Heart disease prediction</title>
+    <style>
+        label {
+            color: green;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Sidebar -->
+<div class="w3-sidebar w3-light-blue w3-bar-block w3-center" style="width:25%">
+    <h3 class="w3-bar-item">Menu</h3>
+    <a href="./get" target="_blank" class="w3-bar-item w3-button">Orchestrez les prédictions <i
+            class="fa fa-mail-forward"></i></a>
+    <a href="./report" target="_blank" class="w3-bar-item w3-button">Afficher les rapports d'analyse <i
+            class="fa fa-line-chart"></i></a>
+    <a href="#" class="w3-bar-item w3-button" onclick="document.getElementById('id02').style.display='block'">Connaître
+        mon statut <i class="fa fa-heartbeat"></i></a>
+    <hr>
+    <p href="#" style="margin-top: 4em"><strong>Developé par: <br>Aboubacar thomas sidibe & Wiame Taarji</strong></p>
+</div>
+
+<!-- Page Content -->
+<div style="margin-left:25%">
+
+    <div class="w3-container w3-card-4">
+        <h1 class="w3-center">Prédiction des maladies cardiaques</h1>
+    </div>
+
+    <div id="id01" class="w3-modal " style="display: block">
+        <div class="w3-modal-content w3-animate-top">
+            <header class="w3-container w3-dark-grey">
+                <h2 class="w3-center">Politique de données</h2>
+            </header>
+
+            <div class="w3-container w3-center">
+                <p>Nous ne stockons pas vos données sur nos serveurs.</p>
+                <p>Les données que vous rentrez sur nos formes, sont envoyées sur nos modèles d'intelligence
+                    artificielle, qui détermine ensuite si vous êtes prédisposés à une
+                    crise cardiaque ou non.</p>
+                <p>Ces données ne sont en aucun cas enregistrés ni distribuer à des personnes tierces.</p>
+                <p>En cliquant sur J'ai compris, vous confirmer avoir pris connaissance de ce texte et consentez.</p>
+
+            </div>
+
+            <footer class="w3-container" style="display: flex;justify-content: space-between">
+                <button class="w3-btn w3-red" onclick="window.location.href='https://www.santepubliquefrance.fr'">
+                    Non,j'utiliser pas la solution <i class="fa fa-thumbs-down"></i></button>
+                <button class="w3-btn w3-green" onclick="document.getElementById('id01').style.display='none'">Oui, J'ai
+                    compris <i class="fa fa-thumbs-up"></i></button>
+            </footer>
+
+        </div>
+    </div>
+
+    <div class="w3-container w3-center">
+        <h2>Context</h2>
+        <!-- <img style="height: 350px; width: auto"
+              src="https://firebasestorage.googleapis.com/v0/b/chapdeals-6d4a6.appspot.com/o/1600949-everything-to-know-about-heart-attacks-symptoms-causes-and-more_body_1296x1030%20(1).webp?alt=media&token=1dfaaa91-b93b-4986-99af-0f10db009dcc">
+         -->
+        <p>Une crise cardiaque (maladies cardiovasculaires) survient lorsque le flux sanguin vers le muscle cardiaque se
+            bloque silencieusement</p>
+        <p>Selon l'OMS aujourd'hui, 17,9 millions de personnes meurent chaque année d'une crise cardiaque qui a besoin
+            de l'homme. Il est donc impératif de trouver des solutions pour éviter que près de 18 millions de personnes
+            ne meurent chaque année, car un bon livre dit qu'il vaut mieux prévenir que guérir.</p>
+        <p><strong>Il y a des symptômes précurseurs que nous allons utiliser pour entraîner notre modèle:</strong></p>
+        <div style="display:flex;justify-content: center">
+            <ul style="width: 50%">
+                <li class="w3-margin-bottom">Douleur thoracique</li>
+                <li class="w3-margin-bottom">Tête légère</li>
+                <li class="w3-margin-bottom">Douleur dans la partie supérieure du corps (mâchoire, cou, dos)</li>
+                <li class="w3-margin-bottom">Short of breath</li>
+            </ul>
+        </div>
+
+    </div>
+
+    <hr>
+
+    <div class="w3-margin-top">
+        <h2 class="w3-center" style="text-transform: capitalize">nos variables prédicteurs</h2>
+        <div style="display: flex;justify-content: center">
+            <ul style="width: 50%">
+                <li class="w3-margin-bottom" title="Age"><strong>Age:</strong> affiche l'âge de la personne</li>
+                <li class="w3-margin-bottom" title="sexe"><strong>Sexe:</strong> affiche le sexe de l'individu selon le
+                    format suivant :
+                    <br> 1 = masculin<br> 0 = féminin
+                </li>
+                <li class="w3-margin-bottom" title="chest pain"><strong>cp:</strong> affiche le type de douleur
+                    thoracique ressentie par
+                    l'individu en utilisant le format suivant : 1 = angine typique 2 = angine atypique 3 = douleur non
+                    angineuse 4 = asymptotique
+                </li>
+                <li class="w3-margin-bottom" title=""><strong>trestbps:</strong> affiche la valeur de la tension
+                    artérielle au repos d'un
+                    individu en mmHg (unité)
+                </li>
+                <li class="w3-margin-bottom"><strong>chol:</strong> affiche le cholestérol sérique en mg/dl (unité)</li>
+                <li class="w3-margin-bottom"><strong>fbs:</strong> compare la valeur de la glycémie à jeune d'un
+                    individu à 120mg/dl.
+                    Si glycémie à jeune > 120mg/dl alors : 1 (vrai) sinon : 0 (faux)
+                </li>
+                <li class="w3-margin-bottom"><strong>restecg:</strong> affiche les résultats électrocardiographiques au
+                    repos<br>
+                    0 = normale<br>
+                    1 = présentant une anomalie de l'onde ST-T<br>
+                    2 = hypertrophie ventriculaire gauche
+                </li>
+                <li class="w3-margin-bottom" title="Displays the max heart rate achieved by an individual."><strong>thalach:</strong>
+                    affiche la fréquence cardiaque maximale atteinte par un individu.
+                </li>
+                <li class="w3-margin-bottom" title="Exercise induced angina "><strong>exang:</strong> Angine induite par
+                    l'exercice
+                </li>
+                <li class="w3-margin-bottom"><strong>oldpeak:</strong> Segment ST d'effort maximal<br>
+                    1 = ascendant<br>
+                    2 = plat<br>
+                    3 = descendant
+                </li>
+                <li class="w3-margin-bottom" title="Number of major vessels (0–3) colored by flourosopy">
+                    <strong>slope:</strong> affiche
+                    la valeur sous forme d'entier ou de flottant.
+                </li>
+                <li class="w3-margin-bottom">ca</li>
+                <li class="w3-margin-bottom"><strong>thal:</strong> affiche la thalassémie</li>
+
+            </ul>
+        </div>
+
+
+    </div>
+</div>
+
+<div id="id02" class="w3-modal">
+    <form method="post" action="./predict" class="w3-modal-content w3-card-4 w3-animate-zoom w3-white ">
+
+        <header class="w3-container w3-light-blue">
+   <span onclick="document.getElementById('id02').style.display='none'"
+         class="w3-button  w3-xlarge w3-display-topright">&times;</span>
+            <h2 class="w3-center">Suis-je à risque?</h2>
+        </header>
+
+        <div style="display: flex;justify-content: center">
+            <p>
+                <select class="w3-select">
+                    <option value="1">Homme</option>
+                    <option value="0">Femme</option>
+                </select>
+            </p>
+        </div>
+
+
+        <div class="w3-container">
+            <p class="w3-half">
+                <label>Age</label>
+                <input class="w3-input" type="number">
+            </p>
+            <p class="w3-half">
+                <label>cp</label>
+                <input class="w3-input" type="number" min="1" max="4">
+            </p>
+        </div>
+
+
+        <div class="w3-container">
+            <p class="w3-half">
+                <label>trestbps</label>
+                <input class="w3-input" type="number" min="0" max="2">
+            </p>
+            <p class="w3-half">
+                <label>chol</label>
+                <input class="w3-input" type="number">
+            </p>
+        </div>
+
+        <div class="w3-container">
+
+            <p class="w3-half">
+                <label>fbs</label>
+                <input class="w3-input" type="number">
+            </p>
+            <p class="w3-half">
+                <label>restecg</label>
+                <input class="w3-input" type="number">
+            </p>
+        </div>
+
+        <div class="w3-container">
+
+            <p class="w3-half">
+                <label>thalach</label>
+                <input class="w3-input" type="number">
+            </p>
+
+            <p class="w3-half">
+                <label>exang</label>
+                <input class="w3-input" type="number">
+            </p>
+        </div>
+
+        <div class="w3-container">
+            <p class="w3-half">
+                <label>slope</label>
+                <input class="w3-input" type="number">
+            </p>
+
+            <p class="w3-half">
+                <label>oldpeak</label>
+                <input class="w3-input" type="number" min="1" max="3">
+            </p>
+        </div>
+
+        <div class="w3-container">
+
+            <p class="w3-half">
+                <label>thal</label>
+                <input class="w3-input" type="number">
+            </p>
+        </div>
+
+        <p class="w3-center">
+            <button class="w3-center w3-btn w3-blue">Lancer la prédiction <i class="fa fa-send"></i></button>
+
+        </p>
+
+
+    </form>
+</div>
+
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ngStorage/0.3.10/ngStorage.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
+
+
+</body>
+</html>
